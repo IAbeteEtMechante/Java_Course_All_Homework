@@ -16,13 +16,31 @@ public class Atm {
     public int getBalance() {
         // User ITERATOR pattern to get balance of the ATM
         // https://java-design-patterns.com/patterns/iterator/
-        return 0;
+
+        if (firstContainer == null) {
+            return 0;
+        }
+        //start with the first one when non null
+        Container currentContainer = firstContainer;
+
+        //what we want to return
+        int result = currentContainer.getDenomination() * currentContainer.getCount();
+        while (currentContainer.hasNext()) {
+            currentContainer = (Container) currentContainer.next();
+            result += currentContainer.getDenomination() * currentContainer.getCount();
+        }
+        return result;
     }
 
     public Map<Integer, Integer> giveMeMoney(int amount) {
         // Use Chain of Responsibility to hand out the cash
         // https://java-design-patterns.com/patterns/chain/
         //return cash.handle(amount);
+        if (firstContainer == null) {
+            System.out.println("Sorry we are currently out of money."
+                    + "Please try a smaller amount or another ATM nearby.");
+            return null;
+        }
         return firstContainer.tryGiveMoney(amount, allBillsGiven);
     }
 
@@ -40,7 +58,11 @@ public class Atm {
         Container container05d01c = new Container(5, 20);
         container10d02c.setNextInChain(container05d01c);
 
+
         Atm myAtm = new Atm(container50d01c);
+        System.out.println("Hello, the maximum amount you can withdraw is: "
+                + myAtm.getBalance() + " euros");
         myAtm.giveMeMoney(235);
+        System.out.println("New balance is: " + myAtm.getBalance() + " euros.\nBye Bye!");
     }
 }

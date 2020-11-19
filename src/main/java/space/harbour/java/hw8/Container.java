@@ -1,9 +1,9 @@
 package space.harbour.java.hw8;
 
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
-public class Container {
+public class Container implements Iterator {
     private int denomination;
     private int count;
     private Container nextInChain;
@@ -18,6 +18,16 @@ public class Container {
     public void setNextInChain(Container container) {
         nextInChain = container;
     }
+
+    public int getDenomination() {
+        return denomination;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+
 
     public Map<Integer, Integer> tryGiveMoney(int amount, Map<Integer, Integer> allBillsGiven) {
         // Use Chain of Responsibility to hand out the cash
@@ -41,8 +51,10 @@ public class Container {
                         + "Please try a smaller amount or another ATM nearby.");
             } else {
                 System.out.println("Please take your card and your bills.");
-                System.out.print("Here are your bills: ");
-                System.out.println(allBillsGiven);
+                System.out.print("Here are your bills:\n");
+                //System.out.println(allBillsGiven);
+                allBillsGiven.forEach((denomination, count) ->
+                        System.out.println("- " + count + "---> " + denomination + " euros bills"));
             }
         }
 
@@ -50,5 +62,13 @@ public class Container {
     }
 
 
+    @Override
+    public boolean hasNext() {
+        return (nextInChain != null);
+    }
 
+    @Override
+    public Object next() {
+        return nextInChain;
+    }
 }
