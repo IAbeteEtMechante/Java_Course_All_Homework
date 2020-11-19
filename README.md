@@ -5,4 +5,4 @@ Initially all homeworks where in separate repos, but it it better to regroup the
 Author: Pierre Schwob
 
 
-![HW-07](https://github.com/IAbeteEtMechante/HW-07/workflows/HW-07/badge.svg)
+![Java_Course_All_Homework](https://github.com/IAbeteEtMechante/Java_Course_All_Homework/workflows/Java_Course_All_Homework/badge.svg)
