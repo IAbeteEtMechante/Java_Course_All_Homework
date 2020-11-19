@@ -13,7 +13,7 @@ import org.junit.Test;
 
 public class AtmTest {
 
-    // Test if cash = null, then Balance = 0
+    // Test01: test that if cash = null, then Balance = 0
     // and giveMeMoney still works, but rejects all requests
     @Test
     public void testNoContainers() {
@@ -25,7 +25,7 @@ public class AtmTest {
         }
     }
 
-    // Test that balance is working properly before and after a withdrowal
+    // Test02: test that balance is working properly before and after a withdrowal
     @Test
     public void testBalance() {
         Container container50d01c = new Container(50, 2);
@@ -47,7 +47,7 @@ public class AtmTest {
         assertEquals(myAtm.getBalance(), 205);
     }
 
-    // Test the correct number of bills given
+    // Test03: test the correct number of bills given
     //by the givememoney() method
     @Test
     public void testGiveMeMoney() {
@@ -76,7 +76,7 @@ public class AtmTest {
 
     }
 
-    //check that if it is empty it doesnt give anything
+    //Test04: check that if it is empty it doesnt give anything
     @Test
     public void testCanBreakTheBank() {
 
