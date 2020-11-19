@@ -1,5 +1,6 @@
-# HW-07
-This is the 7th homework for M3-Java (Harbour Space)
+# Java_Course_All_Homework
+This is an attempt to regroup all homework for M3-Java (Harbour Space).
+Initially all homeworks where in separate repos, but it it better to regroup them for modularity.
 
 Author: Pierre Schwob
 
