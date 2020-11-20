@@ -3,7 +3,7 @@ package space.harbour.java.hw9;
 import java.util.Iterator;
 import java.util.Map;
 
-public class Container implements Iterator {
+public class Container implements Iterator, Cloneable {
     private int denomination;
     private int count;
     private Container nextInChain;
@@ -21,6 +21,10 @@ public class Container implements Iterator {
 
     public int getDenomination() {
         return denomination;
+    }
+
+    public Container getNextInChain() {
+        return nextInChain;
     }
 
     public int getCount() {
@@ -70,5 +74,11 @@ public class Container implements Iterator {
     @Override
     public Object next() {
         return nextInChain;
+    }
+
+    @Override
+    protected Container clone() throws CloneNotSupportedException {
+        Container result = new Container(denomination, count);
+        return result;
     }
 }

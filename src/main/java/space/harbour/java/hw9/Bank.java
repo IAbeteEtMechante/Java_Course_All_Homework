@@ -6,7 +6,7 @@ public class Bank implements MyObserver {
     List<Atm> atms;
     Atm prototypeAtm;
 
-    public Atm getNewAtm() {
+    public Atm getNewAtm() throws CloneNotSupportedException {
         // How about observer?
         Atm newAtm = prototypeAtm.clone();
         atms.add(newAtm);
