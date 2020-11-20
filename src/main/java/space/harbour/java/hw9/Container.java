@@ -49,6 +49,9 @@ public class Container implements ObservableContainer, Iterator, Cloneable {
         int billsGiven = Math.min(amount / denomination, count);
 
         count -= billsGiven;
+        if (count == 0) {
+            notifyObserverBank();
+        }
         amount -= billsGiven * denomination;
         if (allBillsGiven.containsKey(denomination)) {
             allBillsGiven.put(denomination, allBillsGiven.get(denomination) + billsGiven);
