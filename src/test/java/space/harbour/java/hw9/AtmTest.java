@@ -104,18 +104,21 @@ public class AtmTest extends TestCase {
 
         Atm myAtm = new Atm(container50d01c);
 
-        Bank myBank = new Bank();
-        myBank.setPrototypeAtm(myAtm);
+        Bank myBank = new Bank(myAtm);
 
-
+        Atm bankAtm  = myBank.getNewAtm();
 
         //check initial balance of both ATM
-        assertEquals(myAtm.getBalance(), 440);
+        assertEquals(bankAtm.getBalance(), 440);
 
-        //we withdraw from the clone
+        //we withdraw and empty the 50s
+        bankAtm.giveMeMoney(100);
 
-        //balance stays the same in original
-        assertEquals(myAtm.getBalance(), 440);
+        //check that the bank refilled with 10 bills the empty container:
+        assertEquals(bankAtm.firstContainer.getCount(), 10);
+
+        //balance is increment by -100 + 50 * 10 = + 400
+        assertEquals(bankAtm.getBalance(), 840);
 
 
     }

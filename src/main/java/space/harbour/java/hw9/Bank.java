@@ -1,10 +1,17 @@
 package space.harbour.java.hw9;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bank implements ObserverBank {
     List<Atm> atms;
     Atm prototypeAtm;
+
+    Bank(Atm prototype) {
+        prototypeAtm = prototype;
+        atms = new ArrayList<>();
+        atms.add(prototypeAtm);
+    }
 
     public Atm getNewAtm() throws CloneNotSupportedException {
         // How about observer?
@@ -17,6 +24,14 @@ public class Bank implements ObserverBank {
         //    currentContainer = (Container) currentContainer.next();
         //    currentContainer.setBank(this);
         //}
+
+        //add bank as a variable to all new containers for convenience (Observer)
+        newAtm.firstContainer.addObserverBank(this);
+        Container currentContainer = newAtm.firstContainer;
+        while (currentContainer.hasNext()) {
+            currentContainer = (Container) currentContainer.next();
+            currentContainer.addObserverBank(this);
+        }
 
         atms.add(newAtm);
         return newAtm;
@@ -70,8 +85,7 @@ public class Bank implements ObserverBank {
         System.out.println("New balance is: " + myAtm.getBalance() + " euros.\nBye Bye!");
 
 
-        Bank myBank = new Bank();
-        myBank.setPrototypeAtm(myAtm);
+        Bank myBank = new Bank(myAtm);
 
         myBank.getNewAtm();
 

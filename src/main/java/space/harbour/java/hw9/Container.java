@@ -50,6 +50,8 @@ public class Container implements ObservableContainer, Iterator, Cloneable {
 
         count -= billsGiven;
         if (count == 0) {
+            //System.out.println("container " + denomination + ",count: " + count);
+            //System.out.println(bank == null);
             notifyObserverBank();
         }
         amount -= billsGiven * denomination;
