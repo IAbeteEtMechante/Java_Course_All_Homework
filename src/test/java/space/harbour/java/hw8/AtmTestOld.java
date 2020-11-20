@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AtmTest {
+public class AtmTestOld {
 
     // Test01: test that if cash = null, then Balance = 0
     // and giveMeMoney still works, but rejects all requests

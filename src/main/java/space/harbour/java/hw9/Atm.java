@@ -46,8 +46,19 @@ public class Atm implements Cloneable {
 
 
     @Override
-    public Atm clone() {
-        return new Atm(firstContainer);
+    public Atm clone() throws CloneNotSupportedException {
+        Container clonedFirstContainer = firstContainer.clone();
+        Atm result = new Atm(clonedFirstContainer);
+        Container clonedCurrentContainer = clonedFirstContainer;
+        Container nextContainer = firstContainer.getNextInChain();
+        while (nextContainer != null) {
+            Container clonedNextContainer = nextContainer.clone();
+            clonedCurrentContainer.setNextInChain(clonedNextContainer);
+            clonedCurrentContainer = clonedCurrentContainer.getNextInChain();
+            nextContainer = nextContainer.getNextInChain();
+
+        }
+        return result;
     }
 
 
@@ -70,5 +81,6 @@ public class Atm implements Cloneable {
                 + myAtm.getBalance() + " euros");
         myAtm.giveMeMoney(235);
         System.out.println("New balance is: " + myAtm.getBalance() + " euros.\nBye Bye!");
+
     }
 }
