@@ -2,7 +2,7 @@ package space.harbour.java.hw9;
 
 import java.util.List;
 
-public class Bank implements MyObserver {
+public class Bank implements ObserverAtm {
     List<Atm> atms;
     Atm prototypeAtm;
 
@@ -26,9 +26,14 @@ public class Bank implements MyObserver {
     }
 
     @Override
-    public void update(MyObservable observable, String message) {
-        System.out.println(message);
+    public void update(ObservableContainer observable) {
+        System.out.println("Opps");
         // Maybe do something about it?
         // Send a visitor to refill?
+    }
+
+    public static void main(String[] args) {
+        Bank myBank = new Bank();
+
     }
 }
