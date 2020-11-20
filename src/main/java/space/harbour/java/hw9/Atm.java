@@ -13,6 +13,10 @@ public class Atm implements Cloneable {
         this.allBillsGiven = new HashMap<>();
     }
 
+    public Container getFirstContainer() {
+        return firstContainer;
+    }
+
     public int getBalance() {
         // User ITERATOR pattern to get balance of the ATM
         // https://java-design-patterns.com/patterns/iterator/

@@ -1,9 +1,9 @@
 package space.harbour.java.hw9;
 
 public interface ObservableContainer {
-    public void addObserverAtm(ObserverAtm observerAtm);
+    public void addObserverBank(ObserverBank observerBank);
 
-    public void removeObserverAtm(ObserverAtm observerAtm);
+    public void removeObserverBank(ObserverBank observerBank);
 
-    public void notifyObserverAtm();
+    public void notifyObserverBank();
 }
