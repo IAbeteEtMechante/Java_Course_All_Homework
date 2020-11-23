@@ -5,8 +5,11 @@ import java.util.function.Function;
 import org.bson.Document;
 
 public class MongoMovies {
+    public static BasicDBObject searchQuery = new BasicDBObject();
+    public static Function<Document, String> handler;
 
     public static void main(String[] args) {
+
         MongoExecutor executor = new MongoExecutor();
         Document titanic = new Document("title", "Titanic")
                 .append("year", "1997")
@@ -17,7 +20,6 @@ public class MongoMovies {
                 .append("ratings", "7.8");
         executor.execStoreMovie(titanic);
 
-        BasicDBObject searchQuery = new BasicDBObject();
         searchQuery.put("type", "romance");
         Function<Document, String> handler = document -> String.valueOf(document);
         String result = (String) executor.execFindOne("movies", searchQuery, handler);
