@@ -21,7 +21,7 @@ public class MongoMoviesTest {
             .append("ratings", "7.8");
     MongoExecutor executor = new MongoExecutor();
     BasicDBObject searchQuery = new BasicDBObject();
-    Function<Document, String> handler = str -> String.valueOf(str);
+    Function<Document, String> handler;
 
     @Before
     public void setUp() throws Exception {
@@ -34,13 +34,14 @@ public class MongoMoviesTest {
     }
 
     //test01: check that we can add a movie
-    //@Test
-    //public void addMovie() {
-    //    searchQuery.put("title", "Titanic");
-    //    String result = (String) executor.execFindOne("movies", searchQuery, handler);
-    //    //Assert.assertTrue(result.contains("title=Titanic, year=1997, runtime=195, "
-    //    //        + "type=romance, director=James Cameron,"
-    //    + "actors=Leonardo di Caprio, ratings=7.8"));
-    //    Assert.assertTrue(result.contains("Titanic"));
-    //}
+    @Test
+    public void addMovie() {
+        searchQuery.put("title", "Titanic");
+        handler = document -> String.valueOf(document);
+        String result = (String) executor.execFindOne("movies", searchQuery, handler);
+        //Assert.assertTrue(result.contains("title=Titanic, year=1997, runtime=195, "
+        //        + "type=romance, director=James Cameron,"
+        //+ "actors=Leonardo di Caprio, ratings=7.8"));
+        Assert.assertTrue(result.contains("Titanic"));
+    }
 }
