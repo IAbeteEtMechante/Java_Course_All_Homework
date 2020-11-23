@@ -16,7 +16,7 @@ public class MongoExecutor {
     public MongoExecutor() {
         MongoClientURI uri = new MongoClientURI(
                 "mongodb+srv://Pierre:IiHM4lPwBlQLSkcD@cluster0.xc0or.mongodb.net/"
-                        + "movies?retryWrites=true&w=majority");
+                        + "<movies>?retryWrites=true&w=majority");
 
         mongoClient = new MongoClient(uri);
         database = mongoClient.getDatabase("movies");
