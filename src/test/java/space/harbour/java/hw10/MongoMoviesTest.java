@@ -12,6 +12,9 @@ import org.junit.Test;
 
 public class MongoMoviesTest {
 
+    public static BasicDBObject searchQuery = new BasicDBObject();
+    public static Function<Document, String> handler;
+    MongoExecutor executor = new MongoExecutor();
     Document titanic = new Document("title", "Titanic")
             .append("year", "1997")
             .append("runtime", "195")
@@ -19,9 +22,6 @@ public class MongoMoviesTest {
             .append("director", "James Cameron")
             .append("actors", "Leonardo di Caprio")
             .append("ratings", "7.8");
-    MongoExecutor executor = new MongoExecutor();
-    BasicDBObject searchQuery = new BasicDBObject();
-    Function<Document, String> handler;
 
     @Before
     public void setUp() throws Exception {
