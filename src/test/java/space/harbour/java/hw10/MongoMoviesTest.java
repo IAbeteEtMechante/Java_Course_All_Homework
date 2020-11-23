@@ -23,19 +23,12 @@ public class MongoMoviesTest {
             .append("actors", "Leonardo di Caprio")
             .append("ratings", "7.8");
 
-    @Before
-    public void setUp() throws Exception {
-        executor.execStoreMovie(titanic);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        executor.execDeleteMovie(titanic);
-    }
 
     //test01: check that we can add a movie
     @Test
     public void addMovie() {
+
+        executor.execStoreMovie(titanic);
         searchQuery.put("title", "Titanic");
         handler = document -> String.valueOf(document);
         String result = (String) executor.execFindOne("movies", searchQuery, handler);
@@ -43,5 +36,7 @@ public class MongoMoviesTest {
         //        + "type=romance, director=James Cameron,"
         //+ "actors=Leonardo di Caprio, ratings=7.8"));
         //Assert.assertTrue(result.contains("Titanic"));
+        System.out.println(result);
+        executor.execDeleteMovie(titanic);
     }
 }
