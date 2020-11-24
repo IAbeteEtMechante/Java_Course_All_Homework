@@ -33,6 +33,8 @@ public class SimpleChatHandler extends Thread {
                 new InputStreamReader(client.getInputStream()))) {
             String name = in.readLine();
             setName(name);
+            MongoExecutor executor = new MongoExecutor();
+            //executor.welcome(this);
             server.broadcast("Welcome " + name + " to the chat!");
             while (true) {
                 String str = in.readLine();
@@ -40,7 +42,7 @@ public class SimpleChatHandler extends Thread {
                     break; //break the cycle to get another client
                 }
                 server.broadcast(getName() + " says: " + str);
-                MongoExecutor executor = new MongoExecutor();
+
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                 LocalDateTime now = LocalDateTime.now();
                 Document messageDocument = new Document("name", name)

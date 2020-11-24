@@ -29,6 +29,9 @@ public class SimpleChatServer {
 
     public SimpleChatServer(int port) throws IOException {
 
+        MongoExecutor executor = new MongoExecutor();
+        executor.deleteChatHistory();
+
         //this socket is able to listen for incoming connection
         //we use the IP address of our current machine, so no need to specify IP
         ServerSocket serverSocket = new ServerSocket(port);

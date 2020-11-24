@@ -61,4 +61,10 @@ public class MongoExecutor {
         MongoCollection<Document> mongoCollection = database.getCollection("chatHistory");
         mongoCollection.deleteOne(document);
     }
+
+    public void deleteChatHistory() {
+        MongoCollection<Document> mongoCollection = database.getCollection("chatHistory");
+        mongoCollection.deleteMany(new Document());
+    }
+
 }
