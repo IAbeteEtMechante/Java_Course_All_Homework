@@ -9,7 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /*
-This class is an Echo Server
+This class is an Echo Server. Only one client can connect at a given time.
 whatever you send to this server, it will send it back
 can be used with telnet as a client, or another java program as a client
 
@@ -21,9 +21,14 @@ Escape character is '^]'.
 Hello. This is Java EchoServer
 Enter BYE to exit.
 
+You can check and open several terminal at the same time,
+and you will see it can only answer to one client at a given time.
+It can only handle multiple clients in a sequential fashion.
+We will need threads to make it better.
+
  */
 
-public class EchoServer {
+public class EchoServerForUniqueClient {
     public static void main(String[] args) throws IOException {
 
         //this socket is able to listen for incoming connection
