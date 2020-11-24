@@ -23,6 +23,6 @@ public class MongoMovies {
         String result = (String) executor.execFindOne("movies", searchQuery, handler);
         System.out.println(result);
 
-        executor.execDeleteMovie(titanic);
+        //executor.execDeleteMovie(titanic);
     }
 }
