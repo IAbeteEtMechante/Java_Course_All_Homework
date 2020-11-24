@@ -8,6 +8,12 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/*
+This echo server allows many clients to connect
+at the same time and get an echo of
+whatever they say.
+Next step would be to allow the clients to talk to each other
+ */
 
 public class EchoServerMultipleClients {
     public static void main(String[] args) throws IOException {

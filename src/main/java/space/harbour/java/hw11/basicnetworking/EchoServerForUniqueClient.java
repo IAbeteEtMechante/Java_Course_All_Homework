@@ -1,4 +1,4 @@
-package space.harbour.java.hw11.utils;
+package space.harbour.java.hw11.basicnetworking;
 
 import java.io.BufferedReader;
 import java.io.IOException;
