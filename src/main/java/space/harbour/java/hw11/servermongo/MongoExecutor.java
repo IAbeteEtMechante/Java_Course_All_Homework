@@ -6,6 +6,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import java.util.Iterator;
 import java.util.function.Function;
 import org.bson.Document;
 
@@ -29,6 +30,18 @@ public class MongoExecutor {
         MongoCollection<Document> mongoCollection = database.getCollection(collection);
         FindIterable<Document> result = mongoCollection.find(searchQuery);
         return handler.apply(result.first());
+    }
+
+    public void displayAll(String collection) {
+        //Creating a collection object
+        MongoCollection<Document> mongoCollection = database.getCollection(collection);
+        //Retrieving the documents
+        FindIterable<Document> iterDoc = mongoCollection.find();
+        Iterator it = iterDoc.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+
     }
 
     public <T> T execGetAll(String collection,

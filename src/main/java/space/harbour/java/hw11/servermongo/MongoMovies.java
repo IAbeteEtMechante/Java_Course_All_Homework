@@ -12,7 +12,7 @@ public class MongoMovies {
                 .append("year", "1997")
                 .append("runtime", "195")
                 .append("type", "romance")
-                .append("director", "James Camerooooon")
+                .append("director", "James Pierre")
                 .append("actors", "Leonardo di Caprio")
                 .append("ratings", "7.8");
         executor.execStoreMovie(titanic);
@@ -21,6 +21,9 @@ public class MongoMovies {
         searchQuery.put("type", "romance");
         Function<Document, String> handler = document -> String.valueOf(document);
         String result = (String) executor.execFindOne("chatHistory", searchQuery, handler);
+
+        executor.displayAll("chatHistory");
+
         System.out.println(result);
 
         //executor.execDeleteMovie(titanic);
