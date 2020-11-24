@@ -34,7 +34,7 @@ public class SimpleChatHandler extends Thread {
             String name = in.readLine();
             setName(name);
             MongoExecutor executor = new MongoExecutor();
-            //executor.welcome(this);
+            executor.welcome(this);
             server.broadcast("Welcome " + name + " to the chat!");
             while (true) {
                 String str = in.readLine();
@@ -70,5 +70,9 @@ public class SimpleChatHandler extends Thread {
         out.println(message);
         out.flush();
 
+    }
+
+    public PrintWriter getOut() {
+        return out;
     }
 }

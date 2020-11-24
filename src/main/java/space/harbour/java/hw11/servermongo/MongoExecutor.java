@@ -6,6 +6,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.function.Function;
 import org.bson.Document;
@@ -67,4 +68,16 @@ public class MongoExecutor {
         mongoCollection.deleteMany(new Document());
     }
 
+    public void welcome(SimpleChatHandler simpleChatHandler) {
+        MongoCollection<Document> mongoCollection = database.getCollection("chatHistory");
+        ArrayList<Document> allMessages =
+                mongoCollection.find().into(new ArrayList<>());
+        //allMessages.forEach(d -> System.out.println(d.toJson()));
+        allMessages.forEach(
+                message -> simpleChatHandler.getOut().println(
+                        message.get("name") + " said : "
+                        + message.get("message")
+                        + " at "
+                        + message.get("time")));
+    }
 }
