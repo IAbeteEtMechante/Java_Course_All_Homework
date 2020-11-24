@@ -31,6 +31,14 @@ public class MongoExecutor {
         return handler.apply(result.first());
     }
 
+    public <T> T execGetAll(String collection,
+                             BasicDBObject searchQuery,
+                             Function<Document, T> handler) {
+        MongoCollection<Document> mongoCollection = database.getCollection(collection);
+        FindIterable<Document> result = mongoCollection.find(searchQuery);
+        return handler.apply(result.first());
+    }
+
     public void execStoreMovie(Document document) {
         MongoCollection<Document> mongoCollection = database.getCollection("chatHistory");
         mongoCollection.insertOne(document);

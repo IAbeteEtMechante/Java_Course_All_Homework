@@ -8,6 +8,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
+
+import com.mongodb.BasicDBObject;
 import org.bson.Document;
 
 
@@ -34,6 +37,12 @@ public class SimpleChatHandler extends Thread {
             String name = in.readLine();
             setName(name);
             server.broadcast("Welcome " + name + " to the chat!");
+            MongoExecutor executor = new MongoExecutor();
+            BasicDBObject searchQuery = new BasicDBObject();
+            searchQuery.put("type", "romance");
+            Function<Document, String> handler = document -> String.valueOf(document);
+            String result = (String) executor.execFindOne("chatHistory", searchQuery, handler);
+            System.out.println(result);
             while (true) {
                 String str = in.readLine();
                 if (str == null) { //client closed connection
