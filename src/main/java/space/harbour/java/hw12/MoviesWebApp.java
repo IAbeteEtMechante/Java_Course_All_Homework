@@ -1,121 +1,120 @@
-import static spark.Spark.delete;
-import static spark.Spark.get;
-import static spark.Spark.post;
-import static spark.Spark.put;
-import static spark.Spark.staticFileLocation;
+package space.harbour.java.hw12;
 
 import com.google.gson.Gson;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.ModelAndView;
 import spark.Request;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+import static spark.Spark.*;
+
 /**
- * A simple CRUD example showing how to create, get, update and delete book resources.
+ * A simple CRUD example showing how to create, get, update and delete movies resources.
  */
-public class Books {
+public class MoviesWebApp {
 
     /**
-     * Map holding the books.
+     * Map holding the movies.
      */
-    private static Map<Integer, Book> books = new HashMap<>();
+    private static Map<Integer, Movie> movies = new HashMap<>();
 
     public static void main(String[] args) {
-        // Let's add some books to the HashMap
-        // You shoud read them from the MongoDB
-        books.put(1, new Book("The Little Prince", "Antouan De Saint Exupery", 100));
-        books.put(2, new Book("The Oxford Dictionary", "The British Crown", 2000));
-        books.put(3, new Book("Intro to Java + OOP", "Harbour.Space", 15));
+        // Let's add some movies to the HashMap
+        // You should read them from the MongoDB
+        movies.put(1, new Movie("The Little Prince", "Antouan De Saint Exupery", 100));
+        movies.put(2, new Movie("The Oxford Dictionary", "The British Crown", 2000));
+        movies.put(3, new Movie("Intro to Java + OOP", "Harbour.Space", 15));
 
         final Gson gson = new Gson();
         final Random random = new Random();
 
         staticFileLocation("public");
 
-        // Creates a new book resource, will return the ID to the created resource
+        // Creates a new movie resource, will return the ID to the created resource
         // author and title are sent in the post body as x-www-urlencoded values
         // e.g. author=Foo&title=Bar
         // you get them by using request.queryParams("valuename")
-        post("/books", (request, response) -> {
+        post("/movies", (request, response) -> {
             String author = request.queryParams("author");
             String title = request.queryParams("title");
             Integer pages = Integer.valueOf(request.queryParams("pages"));
-            Book book = new Book(author, title, pages);
+            Movie movie = new Movie(author, title, pages);
 
             int id = random.nextInt(Integer.MAX_VALUE);
-            books.put(id, book);
+            movies.put(id, movie);
 
             response.status(HttpStatus.CREATED_201);
             return id;
         });
 
-        // Gets the book resource for the provided id
-        get("/books/:id", (request, response) -> {
+        // Gets the movie resource for the provided id
+        get("/movies/:id", (request, response) -> {
             Integer id = Integer.valueOf(request.params(":id"));
-            Book book = books.get(id);
-            if (book == null) {
+            Movie movie = movies.get(id);
+            if (movie == null) {
                 response.status(HttpStatus.NOT_FOUND_404);
-                return "Book not found";
+                return "Movie not found";
             }
             if (clientAcceptsHtml(request)) {
-                Map<String, Object> bookMap = new HashMap<>();
-                bookMap.put("book", book);
-                return render(bookMap, "book.ftl");
+                Map<String, Object> movieMap = new HashMap<>();
+                movieMap.put("movie", movie);
+                return render(movieMap, "movie.ftl");
             } else if (clientAcceptsJson(request)) {
-                return gson.toJson(book);
+                return gson.toJson(movie);
             }
 
             return null;
         });
 
-        // Updates the book resource for the provided id with new information
+        // Updates the movie resource for the provided id with new information
         // author and title are sent in the request body
         // as x-www-urlencoded values e.g. author=Foo&title=Bar
         // you get them by using request.queryParams("valuename")
-        put("/books/:id", (request, response) -> {
+        put("/movies/:id", (request, response) -> {
             Integer id = Integer.valueOf(request.params(":id"));
-            Book book = books.get(id);
-            if (book == null) {
+            Movie movie = movies.get(id);
+            if (movie == null) {
                 response.status(HttpStatus.NOT_FOUND_404);
-                return "Book not found";
+                return "Movie not found";
             }
             String newAuthor = request.queryParams("author");
             String newTitle = request.queryParams("title");
             String newPages = request.queryParams("pages");
             if (newAuthor != null) {
-                book.setAuthor(newAuthor);
+                movie.setAuthor(newAuthor);
             }
             if (newTitle != null) {
-                book.setTitle(newTitle);
+                movie.setTitle(newTitle);
             }
             if (newPages != null) {
-                book.setPages(Integer.valueOf(newPages));
+                movie.setPages(Integer.valueOf(newPages));
             }
-            return "Book with id '" + id + "' updated";
+            return "Movie with id '" + id + "' updated";
         });
 
-        // Deletes the book resource for the provided id
-        delete("/books/:id", (request, response) -> {
+        // Deletes the movie resource for the provided id
+        delete("/movies/:id", (request, response) -> {
             Integer id = Integer.valueOf(request.params(":id"));
-            Book book = books.remove(id);
-            if (book == null) {
+            Movie movie = movies.remove(id);
+            if (movie == null) {
                 response.status(HttpStatus.NOT_FOUND_404);
-                return "Book not found";
+                return "Movie not found";
             }
-            return "Book with id '" + id + "' deleted";
+            return "Movie with id '" + id + "' deleted";
         });
 
-        // Gets all available book resources
-        get("/books", (request, response) -> {
+        // Gets all available movie resources
+        get("/movies", (request, response) -> {
             if (clientAcceptsHtml(request)) {
-                Map<String, Object> booksMap = new HashMap<>();
-                booksMap.put("books", books);
-                return render(booksMap, "books.ftl");
+                Map<String, Object> moviesMap = new HashMap<>();
+                moviesMap.put("movies", movies);
+                return render(moviesMap, "movies.ftl");
             } else if (clientAcceptsJson(request)) {
-                return gson.toJson(books);
+                return gson.toJson(movies);
             }
 
             return null;
@@ -136,13 +135,13 @@ public class Books {
         return accept != null && accept.contains("application/json");
     }
 
-    public static class Book {
+    public static class Movie {
 
         public String author;
         public String title;
         public Integer pages;
 
-        public Book(String author, String title, Integer pages) {
+        public Movie(String author, String title, Integer pages) {
             this.author = author;
             this.title = title;
             this.pages = pages;

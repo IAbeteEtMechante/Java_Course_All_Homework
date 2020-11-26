@@ -1,10 +1,10 @@
 <html>
     <head>
-        <title>Books Library</title>
+        <title>space.harbour.java.hw12.courseexamples.Books Library</title>
         <link rel="stylesheet" href="/style.css">
     </head>
     <body>
-        <header>Books Library</header>
+        <header>space.harbour.java.hw12.courseexamples.Books Library</header>
 
         <#list books as id, book>
             <section>
